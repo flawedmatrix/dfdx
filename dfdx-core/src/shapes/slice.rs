@@ -93,7 +93,7 @@ macro_rules! slice_shape {
             }
         }
 
-        impl<$($range: RangeBounds<usize>),*> SliceShape<($($range,)*)> for [usize; {length!($($range)*)}]
+        impl<$($range: 'static + RangeBounds<usize>),*> SliceShape<($($range,)*)> for [usize; {length!($($range)*)}]
         where
             $(usize: SliceDim<$range>),*
         {
