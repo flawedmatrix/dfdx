@@ -9,10 +9,10 @@ pub trait Device<E: Dtype>:
     Storage<E>
     + RandomU64
     + CopySlice<E>
+    + CopySlice<usize>
     + crate::tensor::TensorFromVec<E>
     + crate::tensor::TensorFromVec<usize>
     + crate::tensor::TriangleTensor<E>
-    + CopySlice<usize>
 
     // appends
     + super::super::stack::StackKernel<E>
@@ -29,11 +29,11 @@ pub trait Device<E: Dtype>:
 
     // allocation
     + crate::tensor::ZerosTensor<E>
+    + crate::tensor::ZerosTensor<usize>
     + crate::tensor::OnesTensor<E>
     + crate::tensor::SampleTensor<E>
     + crate::tensor::OneFillStorage<E>
     + crate::tensor::ZeroFillStorage<E>
-    + crate::tensor::ZerosTensor<usize>
 
     // broadcast & reduces
     + super::super::sum_to::SumKernel<E>
@@ -43,11 +43,15 @@ pub trait Device<E: Dtype>:
 
     // indexing
     + super::super::select_and_gather::ReplaceDimKernel<E>
+    + super::super::select_and_gather::ReplaceDimKernel<usize>
+    + super::super::select_and_gather::RemoveDimKernel<E>
     + super::super::select_and_gather::RemoveDimKernel<E>
     + super::super::choose::ChooseKernel<E>
+    + super::super::choose::ChooseKernel<usize>
     + super::super::slice::SliceKernel<E>
-    + super::super::roll::RollKernel<E>
     + super::super::slice::SliceKernel<usize>
+    + super::super::roll::RollKernel<E>
+    + super::super::roll::RollKernel<usize>
 
     // matmuls
     + super::super::matmul::MatMatKernel<E>
