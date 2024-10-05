@@ -75,7 +75,7 @@ __device__ void select_bwd(
     }
 }
 
-#define SELECT(TYPENAME, FWD, BWD) \
+#define SELECT_FWD(TYPENAME, FWD) \
 extern "C" __global__ void FWD( \
     const size_t numel, \
     const TYPENAME *inp, \
@@ -91,7 +91,11 @@ extern "C" __global__ void FWD( \
     const size_t *out_strides \
 ) { \
     select_fwd(numel, inp, inp_num_dims, inp_dims, inp_strides, idx, idx_num_dims, idx_dims, idx_strides, out, out_dims, out_strides); \
-} \
+}
+
+#define SELECT(TYPENAME, FWD, BWD) \
+SELECT_FWD(TYPENAME, FWD) \
+\
 extern "C" __global__ void BWD( \
     const size_t numel, \
     TYPENAME *grad_inp, \
@@ -112,3 +116,14 @@ extern "C" __global__ void BWD( \
 SELECT(__half, select_fwd_f16, select_bwd_f16);
 SELECT(float, select_fwd_f32, select_bwd_f32);
 SELECT(double, select_fwd_f64, select_bwd_f64)
+SELECT_FWD(uint8_t, select_fwd_u8);
+SELECT_FWD(uint16_t, select_fwd_u16);
+SELECT_FWD(uint32_t, select_fwd_u32);
+SELECT_FWD(uint64_t, select_fwd_u64);
+SELECT_FWD(uintptr_t, select_fwd_usize);
+SELECT_FWD(int8_t, select_fwd_i8);
+SELECT_FWD(int16_t, select_fwd_i16);
+SELECT_FWD(int32_t, select_fwd_i32);
+SELECT_FWD(int64_t, select_fwd_i64);
+SELECT_FWD(intptr_t, select_fwd_isize);
+SELECT_FWD(bool, select_fwd_bool);

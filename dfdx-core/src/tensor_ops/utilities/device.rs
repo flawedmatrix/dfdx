@@ -45,13 +45,11 @@ pub trait Device<E: Dtype>:
     + super::super::select_and_gather::ReplaceDimKernel<E>
     + super::super::select_and_gather::ReplaceDimKernel<usize>
     + super::super::select_and_gather::RemoveDimKernel<E>
-    + super::super::select_and_gather::RemoveDimKernel<E>
+    + super::super::select_and_gather::RemoveDimKernel<usize>
     + super::super::choose::ChooseKernel<E>
-    + super::super::choose::ChooseKernel<usize>
     + super::super::slice::SliceKernel<E>
     + super::super::slice::SliceKernel<usize>
     + super::super::roll::RollKernel<E>
-    + super::super::roll::RollKernel<usize>
 
     // matmuls
     + super::super::matmul::MatMatKernel<E>

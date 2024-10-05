@@ -86,7 +86,7 @@ __device__ void gather_bwd(
     }
 }
 
-#define GATHER(TYPENAME, FWD, BWD) \
+#define GATHER_FWD(TYPENAME, FWD) \
 extern "C" __global__ void FWD( \
     const size_t numel, \
     const TYPENAME *inp, \
@@ -101,7 +101,11 @@ extern "C" __global__ void FWD( \
     const size_t out_num_dims \
 ) { \
     gather_fwd(numel, inp, inp_num_dims, inp_dims, inp_strides, idx, idx_num_dims, idx_dims, idx_strides, out, out_num_dims); \
-} \
+}
+
+#define GATHER(TYPENAME, FWD, BWD) \
+GATHER_FWD(TYPENAME, FWD) \
+\
 extern "C" __global__ void BWD( \
     const size_t numel, \
     TYPENAME *grad_inp, \
@@ -121,3 +125,14 @@ extern "C" __global__ void BWD( \
 GATHER(__half, gather_fwd_f16, gather_bwd_f16);
 GATHER(float, gather_fwd_f32, gather_bwd_f32);
 GATHER(double, gather_fwd_f64, gather_bwd_f64);
+GATHER_FWD(uint8_t, gather_fwd_u8);
+GATHER_FWD(uint16_t, gather_fwd_u16);
+GATHER_FWD(uint32_t, gather_fwd_u32);
+GATHER_FWD(uint64_t, gather_fwd_u64);
+GATHER_FWD(uintptr_t, gather_fwd_usize);
+GATHER_FWD(int8_t, gather_fwd_i8);
+GATHER_FWD(int16_t, gather_fwd_i16);
+GATHER_FWD(int32_t, gather_fwd_i32);
+GATHER_FWD(int64_t, gather_fwd_i64);
+GATHER_FWD(intptr_t, gather_fwd_isize);
+GATHER_FWD(bool, gather_fwd_bool);
