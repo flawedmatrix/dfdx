@@ -119,7 +119,7 @@ pub trait Device<E: Dtype>:
     + crate::tensor_ops::axpy::AxpyKernel<E>
 
     // conv1d
-    // + super::super::conv1d::Conv1DKernel<E>
+    + super::super::conv1d::Conv1DKernel<E>
 {
 }
 
