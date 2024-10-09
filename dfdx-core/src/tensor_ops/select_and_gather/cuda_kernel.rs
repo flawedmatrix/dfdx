@@ -40,7 +40,7 @@ impl HasCudaKernel<f16> for Cuda {
 }
 
 #[cfg(feature = "f16")]
-impl HasCudaKernel<f16> for Cuda {
+impl HasCudaKernel<AMP<f16>> for Cuda {
     const MOD_GATHER: &'static str = "gather_f16";
     const MOD_SELECT: &'static str = "select_f16";
     const FNS_GATHER: &'static [&'static str] = &["gather_fwd_f16", "gather_bwd_f16"];
