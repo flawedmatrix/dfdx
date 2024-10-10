@@ -132,8 +132,8 @@ impl Device<f64> for crate::tensor::Cpu {}
 
 #[cfg(all(feature = "cuda", feature = "f16"))]
 impl Device<f16> for crate::tensor::Cuda {}
-#[cfg(all(feature = "cuda", feature = "f16"))]
-impl Device<AMP<f16>> for crate::tensor::Cuda {}
+// #[cfg(all(feature = "cuda", feature = "f16"))]
+// impl Device<AMP<f16>> for crate::tensor::Cuda {}
 #[cfg(feature = "cuda")]
 impl Device<f32> for crate::tensor::Cuda {}
 #[cfg(feature = "cuda")]

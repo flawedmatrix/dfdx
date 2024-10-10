@@ -31,7 +31,7 @@ spin = { version = "0.9.8", default-features = false, features = [
 rand = { workspace = true }
 rand_distr = { workspace = true }
 zip = { version = "0.6.6", default-features = false, optional = true }
-cudarc = { version = "0.9.15", default-features = false, optional = true, features = [
+cudarc = { version = "=0.9.11", default-features = false, optional = true, features = [
     "driver",
     "cublas",
     "nvrtc",
